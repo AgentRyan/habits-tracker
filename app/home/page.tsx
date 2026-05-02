@@ -7,16 +7,14 @@ import TodayProgress from "@/components/home/TodayProgress";
 import TodayHabitList from "@/components/home/TodayHabitList";
 import { useHabits, useHabitLogs } from "@/lib/hooks/useHabits";
 import { useAuth } from "@/lib/hooks/useAuth";
-import { formatGreeting, formatTodayLong } from "@/lib/utils/dateUtils";
-import { today } from "@/lib/utils/dateUtils";
+import { formatGreeting, formatTodayLong, getWeekDates, today } from "@/lib/utils/dateUtils";
 import Image from "next/image";
 
 export default function HomePage() {
   const { user } = useAuth();
   const { habits, loading: habitsLoading } = useHabits();
-  const todayDate = new Date();
-  todayDate.setHours(0, 0, 0, 0);
-  const { logs, toggleBoolean, setNumericValue } = useHabitLogs([todayDate]);
+  const weekDates = getWeekDates(0);
+  const { logs, toggleBoolean, setNumericValue } = useHabitLogs(weekDates);
 
   const todayLogs = logs.filter((l) => l.date === today());
 
